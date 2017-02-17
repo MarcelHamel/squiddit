@@ -17,4 +17,22 @@ router.put('/users', controller.editUser);
 router.post('/', controller.create);
 router.get('/', controller.index);
 
-# squiddit
+
+<!-- Redesigned -->
+router.put('/posts/:id', controller.editSub);
+router.post('/posts/:id', controller.createSub);
+router.delete('/posts/:id', controller.destroySub);
+router.get('/new', controller.new);
+router.get('/users', controller.newUser);
+router.post('/users', controller.createUser);
+router.delete('/users', controller.destroyUser);
+router.get('/:id', controller.show);
+router.put('/:id', controller.editPost);
+router.post('/:id', controller.createPost);
+router.delete('/:id', controller.destroyPost);
+router.get('/', controller.index);
+router.post('/', controller.createTopic);
+router.delete('/', controller.destroy);
+router.put('/', controller.edit);
+
+

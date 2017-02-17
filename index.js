@@ -1,0 +1,27 @@
+// Module requirements
+const express         = require('express');
+const app             = express();
+const path            = require('path');
+const bodyParser      = require('body-parser');
+const methodOverride  = require('method-override');
+const logger          = require('morgan');
+
+
+// EJS as view engine
+app.set('view engine', 'ejs');
+// Morgan as logger with 'dev' reporting
+app.use(logger('dev'));
+// Set 'path' to use 'public' for static assets
+app.use(express.static(path.join(__dirname,'public')));
+// Body-parser to return json and read name attributes as extended keys
+app.use(bodyParser.urlencoded({extended: true}));
+app.use(bodyParser.json());
+// Set method-override to... override methods.
+app.use(methodOverride('_method'));
+
+
+// Route all requests through 'resources.js' middleware
+app.use(require('./resources'));
+
+const PORT = process.env.PORT || 3000;
+app.listen(PORT, console.log('Listening on', PORT));
