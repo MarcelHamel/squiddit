@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <title>Welcome to Squiddit</title>
+  <link rel="stylesheet" href="">
+</head>
+<body>
+  <header id="header" class="">
+    <h1>Squiddit</h1>
+  </header><!-- /header -->
+  <main>
+    <h1>Topics</h1>
+    <% topics.forEach((topic) => { %>
+      <h3><%= topic.subject %></h3>
+      <p><%= topic.content %></p>
+    <% }) %>
+    <a href="/squiddit/new">ADD A NEW TOPIC</a>
+  </main>
+</body>
+</html>

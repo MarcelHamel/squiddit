@@ -1,30 +1,46 @@
-let db = require ('../../config/database');
+const Squiddit = require ('../../models/squiddit');
+const Posts = require ('../../models/posts');
 
 let controller = {};
 
 // Index functions
-controller.index = (req, res) => {};
-controller.createTopic = (req, res) => {};
-controller.destroy = (req, res) => {};
-controller.edit = (req, res) => {};
+controller.index = (req, res) => {
+  Squiddit.findAll()
+  .then((data) => res.render('squiddit/index', { topics: data }))
+  .catch(err => console.log('ERROR:', err));
+};
 
-// Sub-comment functions
-controller.editSub = (req, res) => {};
-controller.createSub = (req, res) => {};
-controller.destroySub = (req, res) => {};
+controller.createTopic = (req, res) => {
+  console.log(req.body.topics);
+  Squiddit.createTopic(req.body.topics)
+  .then(() => res.redirect('/squiddit'))
+  .catch(err => console.log('ERROR:', err));
+};
+
 
 // New Topic function
-controller.new = (req, res) => {};
+controller.new = (req, res) => {
+  res.render('squiddit/new');
+};
 
-// User control functions
-controller.newUser = (req, res) => {};
-controller.createUser = (req, res) => {};
-controller.destroyUser = (req, res) => {};
+controller.show = (req, res) => {
+  Squiddit.findById(req.params.id)
+  .then((topic) => {
+    console.log(topic);
+    Posts.findAllById(req.params.id)
+    .then((posts) => {
+      console.log(posts);
+    res.render('squiddit/show', {
+        topic: topic[0], posts: posts
+      });
+    })
+   })
+  .catch(err => console.log('ERROR:', err));
+};
 
-// Single topic functions
-controller.show = (req, res) => {};
-controller.editPost = (req, res) => {};
-rcontroller.createPost = (req, res) => {};
-controller.destroyPost = (req, res) => {};
+
+controller.createPost = (req, res) => {
+
+};
 
 module.exports = controller;
