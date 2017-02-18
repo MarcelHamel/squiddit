@@ -5,7 +5,7 @@ const db            = require('../config/database');
 let controller = {};
 
 controller.findAllById = (id) => {
-  return db.manyOrNone('SELECT * FROM posts WHERE topic_id = $1', [id])
+  return db.manyOrNone('SELECT * FROM posts WHERE topic_id = $1 ORDER BY post_votes DESC', [id])
 };
 
 controller.vote = (id) => {

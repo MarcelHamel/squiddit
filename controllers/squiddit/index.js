@@ -10,11 +10,15 @@ router.get('/new', controller.new);
 // Discussion topic routing
 router.get('/:id', controller.show);
 
+// Upvote
+router.put('/:id', controller.vote);
+
 // Index routing
 router.get('/', controller.index);
 
 // Create a new topic
 router.post('/', controller.createTopic);
+
 
 
 

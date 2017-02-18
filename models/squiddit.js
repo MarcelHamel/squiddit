@@ -14,6 +14,8 @@ controller.findById = (id)  => {
   return db.manyOrNone('SELECT * FROM topics WHERE id = $1', [id]);
 };
 
-controller.vote = () => {};
+controller.vote = (id) => {
+  return db.none('UPDATE topics SET votes = votes + 1 WHERE id = $1', [id])
+};
 
 module.exports = controller;

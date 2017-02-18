@@ -14,7 +14,12 @@
     <h1>Topics</h1>
     <% topics.forEach((topic) => { %>
       <h3><%= topic.subject %></h3>
-      <p><%= topic.content %></p>
+      <p><%= topic.content %><br>
+      VOTES: <%= topic.votes %></p>
+      <form method="POST" action="/Squiddit/<%= topic.id %>?_method=put">
+        <!-- <input type="text" name="redir" value="<%= topic.id %>"" style="display : none" /> -->
+        <input type="submit" value="VOTE" />
+      </form>
     <% }) %>
     <a href="/squiddit/new">ADD A NEW TOPIC</a>
   </main>

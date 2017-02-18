@@ -1,5 +1,5 @@
-const Squiddit = require ('../../models/squiddit');
-const Posts = require ('../../models/posts');
+const Squiddit = require('../../models/squiddit');
+const Posts = require('../../models/posts');
 
 let controller = {};
 
@@ -38,6 +38,12 @@ controller.show = (req, res) => {
   .catch(err => console.log('ERROR:', err));
 };
 
+controller.vote = (req, res) => {
+  console.log(req.body);
+  Squiddit.vote(req.params.id)
+  .then(() => res.redirect(`/squiddit`))
+  .catch(err => console.log('ERROR:', err));
+};
 
 controller.createPost = (req, res) => {
 

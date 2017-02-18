@@ -13,8 +13,9 @@
 <% posts.forEach((post) => { %>
 <p><%= post.post_content %><br>
 Votes: <%= post.post_votes %></p>
-<form action="/posts/<%= post.post_id %>/vote?_method=put" method="POST">
-<button type="submit">SUBMIT</button>
+<form method="POST" action="/posts/<%= post.post_id %>/vote?_method=put">
+<input type="text" name="redir" value="<%= topic.id %>"" style="display : none" />
+<input type="submit" value="VOTE" />
 </form>
 <% }) %>
 </body>
