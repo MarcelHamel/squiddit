@@ -6,10 +6,13 @@ const controller      = require('./controller');
 
 
 // Upvote routing
-router.put('/:id/vote', controller.vote)
+router.put('/:id/vote', controller.vote);
 
-// New comment routing
-// router.post('/new', controller.new);
+// New Post
+// router.get('/new', controller.new);
+
+// Delete a comment
+router.delete('/:id', controller.destroy);
 
 
 

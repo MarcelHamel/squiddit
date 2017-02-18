@@ -6,7 +6,9 @@ let controller = {};
 // Index functions
 controller.index = (req, res) => {
   Squiddit.findAll()
-  .then((data) => res.render('squiddit/index', { topics: data }))
+  .then((data) => {
+    res.render('squiddit/index', { topics: data })
+  })
   .catch(err => console.log('ERROR:', err));
 };
 
@@ -14,6 +16,13 @@ controller.createTopic = (req, res) => {
   console.log(req.body.topics);
   Squiddit.createTopic(req.body.topics)
   .then(() => res.redirect('/squiddit'))
+  .catch(err => console.log('ERROR:', err));
+};
+
+controller.createPost = (req, res) => {
+  console.log(req.body.post);
+  Squiddit.createPost(req.body.post)
+  .then(() => res.redirect(`/squiddit/${req.params.id}`))
   .catch(err => console.log('ERROR:', err));
 };
 
@@ -45,8 +54,10 @@ controller.vote = (req, res) => {
   .catch(err => console.log('ERROR:', err));
 };
 
-controller.createPost = (req, res) => {
-
+controller.destroy = (req, res) => {
+  Squiddit.destroy(req.params.id)
+  .then(() => res.redirect('/squiddit'))
+  .catch(err => console.log('ERROR:', err));
 };
 
 module.exports = controller;

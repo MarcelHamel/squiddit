@@ -46,6 +46,7 @@ CREATE TABLE "users" (
 	"id" serial NOT NULL,
 	"name" varchar(25) NOT NULL,
 	"pin" varchar(4) NOT NULL,
+	"comments" integer DEFAULT 0,
 	CONSTRAINT users_pk PRIMARY KEY ("id")
 ) WITH (
   OIDS=FALSE

@@ -4,7 +4,7 @@
   <meta charset="utf-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <title>Welcome to Squiddit</title>
-  <link rel="stylesheet" href="">
+  <link rel="stylesheet" href="css/style.css">
 </head>
 <body>
   <header id="header" class="">
@@ -13,13 +13,21 @@
   <main>
     <h1>Topics</h1>
     <% topics.forEach((topic) => { %>
+    <div class="topic">
       <h3><%= topic.subject %></h3>
       <p><%= topic.content %><br>
-      VOTES: <%= topic.votes %></p>
+      VOTES: <%= topic.votes %> - COMMENTS: <%= topic.comments %></p>
       <form method="POST" action="/Squiddit/<%= topic.id %>?_method=put">
         <!-- <input type="text" name="redir" value="<%= topic.id %>"" style="display : none" /> -->
         <input type="submit" value="VOTE" />
       </form>
+      <form method="POST" action="/Squiddit/<%= topic.id %>?_method=delete">
+        <!-- <input type="text" name="redir" value="<%= topic.id %>"" style="display : none" /> -->
+        <input type="submit" value="DELETE" />
+      </form>
+      <a href="/squiddit/<%= topic.id %>">SEE MORE</a>
+
+    </div>
     <% }) %>
     <a href="/squiddit/new">ADD A NEW TOPIC</a>
   </main>

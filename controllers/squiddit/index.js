@@ -13,11 +13,18 @@ router.get('/:id', controller.show);
 // Upvote
 router.put('/:id', controller.vote);
 
+// Delete a topic
+router.delete('/:id', controller.destroy);
+
+// Add a comment
+router.post('/:id', controller.createPost);
+
 // Index routing
 router.get('/', controller.index);
 
 // Create a new topic
 router.post('/', controller.createTopic);
+
 
 
 

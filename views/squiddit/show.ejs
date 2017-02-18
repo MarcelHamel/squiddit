@@ -7,16 +7,34 @@
   <link rel="stylesheet" href="">
 </head>
 <body>
-<h3>I am rendering!</h3>
-<h1><%= topic.subject %></h1>
-<h3><%= topic.content %></h3>
-<% posts.forEach((post) => { %>
-<p><%= post.post_content %><br>
-Votes: <%= post.post_votes %></p>
-<form method="POST" action="/posts/<%= post.post_id %>/vote?_method=put">
-<input type="text" name="redir" value="<%= topic.id %>"" style="display : none" />
-<input type="submit" value="VOTE" />
-</form>
-<% }) %>
+
+  <a href="/squiddit">GO BACK</a>
+
+  <h1><%= topic.subject %></h1>
+  <h3><%= topic.content %></h3>
+
+  <p>Weigh in below:</p>
+  <form method="POST" action="/squiddit/<%= topic.id %>">
+    <input type="text" name="post[topic_id]" value="<%= topic.id %>" style="display : none" />
+    <input type="text" name="post[content]" placeholder="Comment here" />
+    <input type="submit" value="POST" />
+  </form>
+
+  <% posts.forEach((post) => { %>
+  <p><%= post.post_content %><br>
+  Votes: <%= post.post_votes %></p>
+
+  <form method="POST" action="/posts/<%= post.post_id %>?_method=delete">
+    <input type="text" name="redir" value="<%= topic.id %>" style="display : none" />
+    <input type="submit" value="DELETE" />
+  </form>
+
+  <form method="POST" action="/posts/<%= post.post_id %>/vote?_method=put">
+    <input type="text" name="redir" value="<%= topic.id %>" style="display : none" />
+    <input type="submit" value="VOTE" />
+  </form>
+
+  <% }) %>
+
 </body>
 </html>

@@ -10,6 +10,10 @@ controller.findAllById = (id) => {
 
 controller.vote = (id) => {
   return db.none('UPDATE posts SET post_votes = post_votes + 1 WHERE post_id = $1', [id])
+};
+
+controller.destroy = (id) => {
+  return db.none('DELETE FROM posts WHERE post_id = $1', [id])
 }
 
 module.exports = controller;
