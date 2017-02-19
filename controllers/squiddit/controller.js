@@ -7,7 +7,13 @@ let controller = {};
 controller.index = (req, res) => {
   Squiddit.findAll()
   .then((data) => {
-    res.render('squiddit/index', { topics: data })
+    Squiddit.commentCount()
+    .then((count) => {
+      console.log(count);
+      res.render('squiddit/index', {
+        topics: data, count: count
+      })
+    })
   })
   .catch(err => console.log('ERROR:', err));
 };
@@ -36,14 +42,20 @@ controller.show = (req, res) => {
   Squiddit.findById(req.params.id)
   .then((topic) => {
     console.log(topic);
+
     Posts.findAllById(req.params.id)
     .then((posts) => {
       console.log(posts);
-    res.render('squiddit/show', {
-        topic: topic[0], posts: posts
-      });
+
+      Posts.findAllSubsById(req.params.id)
+      .then((subs) => {
+        console.log(subs);
+        res.render('squiddit/show', {
+          topic: topic[0], posts: posts, subs: subs
+        });
+      })
     })
-   })
+  })
   .catch(err => console.log('ERROR:', err));
 };
 

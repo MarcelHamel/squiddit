@@ -4,7 +4,7 @@ DROP TABLE IF EXISTS sub_posts;
 CREATE TABLE "sub_posts" (
 	"sub_id" serial NOT NULL,
 	"post_id" integer NOT NULL,
-	"user_id" integer NOT NULL,
+	-- "user_id" integer NOT NULL,
 	"sub_comment" TEXT NOT NULL,
 	CONSTRAINT sub_posts_pk PRIMARY KEY ("sub_id")
 ) WITH (

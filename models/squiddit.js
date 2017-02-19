@@ -22,8 +22,8 @@ controller.vote = (id) => {
   return db.none('UPDATE topics SET votes = votes + 1 WHERE id = $1', [id])
 };
 
-controller.commentCount = (id) => {
-  return db.one('SELECT COUNT(*) FROM posts WHERE topic_id = $1', [id]);
+controller.commentCount = () => {
+  return db.query('SELECT COUNT(*), topic_id FROM posts GROUP BY topic_id;');
 }
 
 controller.destroy = (id) => {

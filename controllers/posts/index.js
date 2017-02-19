@@ -8,8 +8,11 @@ const controller      = require('./controller');
 // Upvote routing
 router.put('/:id/vote', controller.vote);
 
-// New Post
-// router.get('/new', controller.new);
+// Delete Subcomment
+router.delete('/:id/:subid', controller.destroySub);
+
+// New Subcomment
+router.post('/:id', controller.newSub);
 
 // Delete a comment
 router.delete('/:id', controller.destroy);

@@ -16,7 +16,10 @@
     <div class="topic">
       <h3><%= topic.subject %></h3>
       <p><%= topic.content %><br>
-      VOTES: <%= topic.votes %> - COMMENTS: <%= topic.comments %></p>
+      VOTES: <%= topic.votes %> - COMMENTS:
+      <% count.forEach((row) => {
+        if (row.topic_id === topic.id) { %>
+      <%= row.count %><% }}) %></p>
       <form method="POST" action="/Squiddit/<%= topic.id %>?_method=put">
         <!-- <input type="text" name="redir" value="<%= topic.id %>"" style="display : none" /> -->
         <input type="submit" value="VOTE" />

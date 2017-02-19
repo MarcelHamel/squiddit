@@ -14,6 +14,22 @@ controller.vote = (id) => {
 
 controller.destroy = (id) => {
   return db.none('DELETE FROM posts WHERE post_id = $1', [id])
+};
+
+controller.destroySub = (id, subId) => {
+  return db.none('DELETE FROM sub_posts WHERE post_id = $1 AND sub_id = $2', [id, subId])
 }
+
+controller.newSub = (id, subPost) => {
+  return db.none('INSERT INTO sub_posts (post_id, sub_comment) VALUES ($1, $2)', [id, subPost.content]);
+};
+
+// controller.findAllSubsById = (id) => {
+//   return db.manyOrNone('SELECT * FROM sub_posts WHERE post_id = $1', [id]);
+// };
+
+controller.findAllSubsById = (id) => {
+  return db.manyOrNone('SELECT * FROM posts LEFT JOIN sub_posts ON posts.post_id = sub_posts.post_id WHERE topic_id = $1', [id]);
+};
 
 module.exports = controller;
