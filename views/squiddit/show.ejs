@@ -13,44 +13,58 @@
   <h1><%= topic.subject %></h1>
   <h3><%= topic.content %></h3>
 
+  <% if (req.session.user) { %>
   <p>Weigh in below:</p>
   <form method="POST" action="/squiddit/<%= topic.id %>">
     <input type="text" name="post[topic_id]" value="<%= topic.id %>" style="display : none" />
     <input type="text" name="post[content]" placeholder="Comment here" />
     <input type="submit" value="POST" />
   </form>
+  <% } else { %>
+  <p><i>You must be logged in to comment</i><br>
+  <a href="/squiddit/login">LOGIN/SIGN UP</a></p>
+  <% } %>
 
   <% posts.forEach((post) => { %>
   <p><%= post.post_content %><br>
+  Posted by: <%= post.username %><br>
   Votes: <%= post.post_votes %></p>
-  <% subs.forEach((sub) => {
-    if (sub.post_id === post.post_id) { %>
 
-    <p><%= sub.sub_comment %></p>
-
-    <form method="POST" action="/posts/<%= post.post_id %>/<%= sub.sub_id %>?_method=delete">
-      <input type="text" name="redir" value="<%= topic.id %>" style="display : none" />
-      <input type="submit" value="DELETE SUB" />
-    </form>
-
-  <% }}) %>
-
+  <% if (post.username === req.session.user) { %>
   <form method="POST" action="/posts/<%= post.post_id %>?_method=delete">
     <input type="text" name="redir" value="<%= topic.id %>" style="display : none" />
     <input type="submit" value="DELETE" />
   </form>
+  <% } %>
 
   <form method="POST" action="/posts/<%= post.post_id %>/vote?_method=put">
     <input type="text" name="redir" value="<%= topic.id %>" style="display : none" />
     <input type="submit" value="VOTE" />
   </form>
 
+  <% subs.forEach((sub) => {
+    if (sub.post_id === post.post_id) { %>
 
+    <p><%= sub.username %> says:<br>
+    <%= sub.sub_comment %></p>
+
+    <% if (sub.username === req.session.user) { %>
+    <form method="POST" action="/posts/<%= post.post_id %>/<%= sub.sub_id %>?_method=delete">
+      <input type="text" name="redir" value="<%= topic.id %>" style="display : none" />
+      <input type="submit" value="DELETE SUB" />
+    </form>
+    <% } %>
+
+  <% }}) %>
+
+
+  <% if (req.session.user) { %>
   <form method="POST" action="/posts/<%= post.post_id %>">
     <input type="text" name="redir" value="<%= topic.id %>" style="display : none" />
     <input type="text" name="subPost[content]" />
     <input type="submit" value="SUBMIT" />
   </form>
+  <% } %>
 
   <% }) %>
 

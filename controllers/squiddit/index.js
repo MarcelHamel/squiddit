@@ -7,6 +7,15 @@ const controller      = require('./controller');
 // New topic routing
 router.get('/new', controller.new);
 
+// Login page
+router.get('/login', controller.login)
+
+// Log out user
+router.get('/logout', controller.logout)
+
+// Check login validity
+router.get('/verify', controller.loginVerify);
+
 // Discussion topic routing
 router.get('/:id', controller.show);
 

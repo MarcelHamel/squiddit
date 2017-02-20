@@ -18,7 +18,7 @@ controller.destroy = (req, res) => {
 
 controller.newSub = (req, res) => {
   console.log(req.body);
-  Posts.newSub(req.params.id, req.body.subPost)
+  Posts.newSub(req.params.id, req.body.subPost, req.session.user)
   .then(() => res.redirect(`/squiddit/${req.body.redir[0]}`))
   .catch(err => console.log('ERROR:', err));
 };

@@ -6,12 +6,12 @@ controller.findAll = () => {
   return db.manyOrNone('SELECT * FROM topics ORDER BY votes DESC');
 };
 
-controller.createTopic = (topics) => {
-  return db.none('INSERT INTO topics (subject, content) VALUES ($1, $2)', [topics.subject, topics.content]);
+controller.createTopic = (topics, user) => {
+  return db.none('INSERT INTO topics (subject, content, username) VALUES ($1, $2, $3)', [topics.subject, topics.content, user]);
 };
 
-controller.createPost = (post) => {
-  return db.none('INSERT INTO posts (topic_id, post_content) VALUES ($1, $2)', [post.topic_id, post.content]);
+controller.createPost = (post, user) => {
+  return db.none('INSERT INTO posts (topic_id, post_content, username) VALUES ($1, $2, $3)', [post.topic_id, post.content, user]);
 };
 
 controller.findById = (id)  => {
@@ -29,5 +29,13 @@ controller.commentCount = () => {
 controller.destroy = (id) => {
   return db.none('DELETE FROM topics WHERE id = $1', [id])
 }
+
+controller.loginVerify = (name, pin) => {
+  return db.manyOrNone('SELECT * FROM users WHERE name = $1 AND password = $2', [name, pin]);
+};
+
+controller.findUserById = (id) => {
+  return db.one('SELECT * FROM users WHERE id = $1', [id]);
+};
 
 module.exports = controller;

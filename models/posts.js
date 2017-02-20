@@ -20,8 +20,8 @@ controller.destroySub = (id, subId) => {
   return db.none('DELETE FROM sub_posts WHERE post_id = $1 AND sub_id = $2', [id, subId])
 }
 
-controller.newSub = (id, subPost) => {
-  return db.none('INSERT INTO sub_posts (post_id, sub_comment) VALUES ($1, $2)', [id, subPost.content]);
+controller.newSub = (id, subPost, user) => {
+  return db.none('INSERT INTO sub_posts (post_id, sub_comment, username) VALUES ($1, $2, $3)', [id, subPost.content, user]);
 };
 
 // controller.findAllSubsById = (id) => {
