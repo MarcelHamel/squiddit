@@ -1,6 +1,7 @@
 const session         = require('express-session');
 const Squiddit        = require('../../models/squiddit');
 const Posts           = require('../../models/posts');
+const marked          = require('marked');
 
 let controller = {};
 
@@ -9,15 +10,15 @@ controller.index = (req, res) => {
   // Find all posts
   Squiddit.findAll()
   .then((data) => {
-
     // Then count all comments
     Squiddit.commentCount()
     .then((count) => {
 
       // Render topics with comment count
       res.render('squiddit/index', {
-        topics: data, count: count, req: req
-
+        topics: data,
+        count: count,
+        req: req
       })
     })
   })
