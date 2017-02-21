@@ -26,9 +26,14 @@
     <main>
 
       <!-- Placeholder for error message for invalid user -->
-      <% if (req.query.invalid) { %>
+      <% if (req.query.invalid === "user") { %>
       <div class="warning">
         <p>Invalid! User already exists with that name</p>
+      </div>
+      <% } %>
+      <% if (req.query.invalid === "badlogin") { %>
+      <div class="warning">
+        <p>Invalid Username or Password!</p>
       </div>
       <% } %>
 

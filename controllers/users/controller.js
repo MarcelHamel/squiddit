@@ -15,7 +15,7 @@ controller.loginVerify = (req, res) => {
   .then((data) => {
     // DB query set to manyOrNone. If no username matches that password, then length = 0;
     if (data.length === 0) {
-      res.send('Invalid login!')
+      res.redirect('/users/login?invalid=badlogin')
       // Else....
     } else {
       // Get session property of user equal to provided name
@@ -46,7 +46,7 @@ controller.newUser = (req, res) => {
   Users.userExist(req.body.newUser)
   .then((data) => {
     if (data.length > 0) {
-      res.redirect('/users/login?invalid=true')
+      res.redirect('/users/login?invalid=user')
     } else {
       Users.newUser(req.body.newUser)
       .then(() => {
