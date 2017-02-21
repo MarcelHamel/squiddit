@@ -1,4 +1,11 @@
-let pgp           = require('pg-promise')();
-let database      = pgp('postgres://localhost:5432/squiddit');
+const pgp           = require('pg-promise')();
+
+const database  = pgp(process.env.DATABASE_URL || {
+host: 'localhost',
+port: 5432,
+database: 'squiddit'
+});
+
+
 
 module.exports    = database;

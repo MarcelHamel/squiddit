@@ -8,6 +8,10 @@ const logger          = require('morgan');
 const marked          = require('marked');
 const session         = require('express-session');
 
+// Set port
+const PORT = process.env.PORT || 3000;
+
+
 
 // Express-sessions creates a user session
 app.use(session({
@@ -16,6 +20,7 @@ app.use(session({
   saveUninitialized: false,
   resave: false
 }));
+
 // EJS as view engine
 app.set('view engine', 'ejs');
 // Morgan as logger with 'dev' reporting
@@ -32,5 +37,4 @@ app.use(methodOverride('_method'));
 // Route all requests through 'resources.js' middleware
 app.use(require('./resources'));
 
-const PORT = process.env.PORT || 3000;
 app.listen(PORT, console.log('Listening on', PORT));
