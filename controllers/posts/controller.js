@@ -4,31 +4,30 @@ let controller = {};
 
 // Increments the vote count for specific comments
 controller.vote = (req, res) => {
-  console.log(req.body);
   Posts.vote(req.params.id)
+  // Redirects to topic via topic ID held in "Redir" property from EJS
   .then(() => res.redirect(`/squiddit/${req.body.redir[0]}`))
   .catch(err => console.log('ERROR:', err));
 };
 
 // Deletes a comment
 controller.destroy = (req, res) => {
-  console.log(req.body);
   Posts.destroy(req.params.id)
+  // Redirects to topic via topic ID held in "Redir" property from EJS
   .then(() => res.redirect(`/squiddit/${req.body.redir[0]}`))
   .catch(err => console.log('ERROR:', err));
 };
 
 // Post a new subcomment
 controller.newSub = (req, res) => {
-  console.log(req.body);
   Posts.newSub(req.params.id, req.body.subPost, req.session.user)
+  // Redirects to topic via topic ID held in "Redir" property from EJS
   .then(() => res.redirect(`/squiddit/${req.body.redir[0]}`))
   .catch(err => console.log('ERROR:', err));
 };
 
 // Delete subcomment
 controller.destroySub = (req, res) => {
-  console.log(req.params.id, req.params.subid);
   Posts.destroySub(req.params.id, req.params.subid)
   .then(() => res.redirect(`/squiddit/${req.body.redir[0]}`))
   .catch(err => console.log('ERROR:', err));

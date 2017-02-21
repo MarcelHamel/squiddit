@@ -6,29 +6,36 @@ let controller = {};
 
 // Index functions
 controller.index = (req, res) => {
-  console.log(req.session);
+  // Find all posts
   Squiddit.findAll()
   .then((data) => {
+
+    // Then count all comments
     Squiddit.commentCount()
     .then((count) => {
+
+      // Render topics with comment count
       res.render('squiddit/index', {
         topics: data, count: count, req: req
+
       })
     })
   })
+
   .catch(err => console.log('ERROR:', err));
+
 };
 
-controller.createTopic = (req, res) => {
-  console.log(req.body.topics);
-  Squiddit.createTopic(req.body.topics, req.session.user)
+// Create a new topic
+controller.newTopic = (req, res) => {
+  Squiddit.newTopic(req.body.topics, req.session.user)
   .then(() => res.redirect('/squiddit'))
   .catch(err => console.log('ERROR:', err));
 };
 
-controller.createPost = (req, res) => {
-  console.log(req.body.post);
-  Squiddit.createPost(req.body.post, req.session.user)
+// Create a new COMMENT -
+controller.newComment = (req, res) => {
+  Squiddit.newComment(req.body.post, req.session.user)
   .then(() => res.redirect(`/squiddit/${req.params.id}`))
   .catch(err => console.log('ERROR:', err));
 };
@@ -41,18 +48,22 @@ controller.new = (req, res) => {
   });
 };
 
+// Show individual topic page
 controller.show = (req, res) => {
+
+  // First grab topic by ID
   Squiddit.findById(req.params.id)
   .then((topic) => {
-    console.log(topic);
 
+    // Then grab all of its comments by Topic ID
     Posts.findAllById(req.params.id)
     .then((posts) => {
-      console.log(posts);
 
+      // Then grab all sub comments by ID
       Posts.findAllSubsById(req.params.id)
       .then((subs) => {
-        console.log(subs);
+
+        // Render it all
         res.render('squiddit/show', {
           topic: topic[0], posts: posts, subs: subs, req: req
 
@@ -60,20 +71,23 @@ controller.show = (req, res) => {
       })
     })
   })
+
   .catch(err => console.log('ERROR:', err));
 };
 
+// Vote on topics
 controller.vote = (req, res) => {
-  console.log(req.body);
   Squiddit.vote(req.params.id)
   .then(() => res.redirect(`/squiddit`))
   .catch(err => console.log('ERROR:', err));
 };
 
+// Delete a topic
 controller.destroy = (req, res) => {
   Squiddit.destroy(req.params.id)
   .then(() => res.redirect('/squiddit'))
   .catch(err => console.log('ERROR:', err));
 };
+
 
 module.exports = controller;

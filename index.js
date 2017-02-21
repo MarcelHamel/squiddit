@@ -8,8 +8,6 @@ const logger          = require('morgan');
 const marked          = require('marked');
 const session         = require('express-session');
 
-// Set port
-const PORT = process.env.PORT || 3000;
 
 
 
@@ -37,4 +35,6 @@ app.use(methodOverride('_method'));
 // Route all requests through 'resources.js' middleware
 app.use(require('./resources'));
 
+// Set port
+const PORT = process.env.PORT || 3000;
 app.listen(PORT, console.log('Listening on', PORT));

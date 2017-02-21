@@ -15,61 +15,79 @@
   <header id="header">
 
     <a href="/squiddit"><h1>Squiddit</h1></a>
+    <!-- Checks to see if user session exists, adjust header accordingly -->
     <% if (req.session.user) { %>
-    <p>You are logged in as <%= req.session.user %>  <a href="/users/logout">LOG OUT</a></p>
+      <p>You are logged in as <%= req.session.user %>  <a href="/users/logout">LOG OUT</a></p>
     <% } else { %>
-    <a href="/users/login">LOGIN / SIGN UP</a>
+      <a href="/users/login">LOGIN / SIGN UP</a>
     <% } %>
 
   </header><!-- /header -->
 
   <main>
 
+  <!-- Checks for user session, allows posting if user logged in -->
     <% if (req.session.user) { %>
-    <div class="newPost">
-        <a href="/squiddit/new">ADD A NEW TOPIC</a><br>
-    </div>
+
+      <div class="newPost">
+          <a href="/squiddit/new">ADD A NEW TOPIC</a><br>
+      </div>
+
     <% } else { %>
-    <div class="warning">
-      <p><i>You must be logged in to post</i></p>
-    </div>
+
+      <div class="warning">
+        <p><i>You must be logged in to post</i></p>
+      </div>
+
     <% } %>
 
   <div class="container">
-    <div class="topics">
-    <h1>Topics</h1>
-    <% topics.forEach((topic) => { %>
-    <div class="single-topic">
-      <h3><span class="topic-subject"><%= topic.subject %></span></h3>
-      <div class="topic-content"><%= topic.content %></div>
-      <div class="topic-controls">
-      <p><i>VOTES: <%= topic.votes %> - COMMENTS:
-      <% count.forEach((row) => {
-        if (row.topic_id === topic.id) { %>
-      <%= row.count %><% }}) %>
-      Posted by: <%= topic.username %></i></p>
-      <form method="POST" action="/Squiddit/<%= topic.id %>?_method=put">
-        <!-- <input type="text" name="redir" value="<%= topic.id %>"" style="display : none" /> -->
-        <input type="submit" value="VOTE" />
-      </form>
-      <% if (topic.username === req.session.user) { %>
-      <form method="POST" action="/Squiddit/<%= topic.id %>?_method=delete">
-        <!-- <input type="text" name="redir" value="<%= topic.id %>"" style="display : none" /> -->
-        <input type="submit" value="DELETE" />
-      </form>
-      <% } %>
-      <form method="GET" action="/Squiddit/<%= topic.id %>">
-        <!-- <input type="text" name="redir" value="<%= topic.id %>"" style="display : none" /> -->
-        <input type="submit" value="SEE MORE" />
-      </form>
-      <!-- <a href="/squiddit/<%= topic.id %>">SEE MORE</a> -->
+      <div class="topics">
+        <h1>Topics</h1>
+
+        <% topics.forEach((topic) => { %>
+
+          <div class="single-topic">
+            <h3><span class="topic-subject"><%= topic.subject %></span></h3>
+            <div class="topic-content"><%= topic.content %></div>
+            <div class="topic-controls">
+
+            <!-- Displays # of topic votes, comments -->
+            <p><i>VOTES: <%= topic.votes %> - COMMENTS:
+            <% count.forEach((row) => {
+              if (row.topic_id === topic.id) { %>
+            <%= row.count %><% }}) %>
+            Posted by: <%= topic.username %></i></p>
+
+            <!-- Vote -->
+            <form method="POST" action="/Squiddit/<%= topic.id %>?_method=put">
+              <input type="submit" value="VOTE" />
+            </form>
+
+            <!-- Delete if and only if user posted this topic -->
+            <% if (topic.username === req.session.user) { %>
+            <form method="POST" action="/Squiddit/<%= topic.id %>?_method=delete">
+              <input type="submit" value="DELETE" />
+            </form>
+            <% } %>
+
+            <!-- Read More Link to Show Page -->
+            <form method="GET" action="/Squiddit/<%= topic.id %>">
+              <input type="submit" value="SEE MORE" />
+            </form>
+
+            </div>
+          </div>
+
+        <% }) %>
+
       </div>
-    </div>
-    <% }) %>
-    </div>
-    <div class="sidebar">
-      <h1>ABOUT SQUIDDIT</h1>
-      <p>A project of full-stack developer, Marcel Hamel, Squiddit is a discussion forum where you can rant and rave about everyone's favorite cephalopods.</p>
+
+      <div class="sidebar">
+        <h1>ABOUT SQUIDDIT</h1>
+        <p>A project of full-stack developer, Marcel Hamel, Squiddit is a discussion forum where you can rant and rave about everyone's favorite cephalopods.</p>
+      </div>
+
     </div>
   </main>
 </body>

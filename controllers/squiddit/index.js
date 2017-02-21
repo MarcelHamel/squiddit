@@ -17,13 +17,13 @@ router.put('/:id', controller.vote);
 router.delete('/:id', controller.destroy);
 
 // Add a comment
-router.post('/:id', controller.createPost);
+router.post('/:id', controller.newComment);
 
 // Index routing
 router.get('/', controller.index);
 
 // Create a new topic
-router.post('/', controller.createTopic);
+router.post('/', controller.newTopic);
 
 
 
