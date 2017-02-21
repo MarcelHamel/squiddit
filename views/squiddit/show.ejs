@@ -4,69 +4,92 @@
   <meta charset="utf-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <title><%= topic.subject %></title>
-  <link rel="stylesheet" href="">
+  <!-- CSS links -->
+  <link rel="stylesheet" type="text/css" href="/css/normalize.css">
+  <link rel="stylesheet" type="text/css" href="/css/style.css">
+
 </head>
 <body>
 
-  <a href="/squiddit">GO BACK</a>
+  <header id="header">
 
+    <a href="/squiddit"><h1>Squiddit</h1></a>
+    <% if (req.session.user) { %>
+    <p>You are logged in as <%= req.session.user %>  <a href="/users/logout">LOG OUT</a></p>
+    <% } else { %>
+    <a href="/users/login">LOGIN / SIGN UP</a>
+    <% } %>
+
+  </header><!-- /header -->
+
+  <main>
+
+  <div class="post-display">
   <h1><%= topic.subject %></h1>
-  <h3><%= topic.content %></h3>
+  <p><i>Posted by <%= topic.username %></i></p>
+  <hr>
+  <p><%= topic.content %></p>
+  <hr>
+  </div>
 
   <% if (req.session.user) { %>
   <p>Weigh in below:</p>
   <form method="POST" action="/squiddit/<%= topic.id %>">
-    <input type="text" name="post[topic_id]" value="<%= topic.id %>" style="display : none" />
-    <input type="text" name="post[content]" placeholder="Comment here" />
+    <input type="text" name="post[topic_id]" value="<%= topic.id %>" style="display: none" />
+    <input type="text" class="content" name="post[content]" placeholder="Comment here" />
     <input type="submit" value="POST" />
   </form>
   <% } else { %>
-  <p><i>You must be logged in to comment</i><br>
-  <a href="/squiddit/login">LOGIN/SIGN UP</a></p>
+  <div class="warning">
+      <p><i>You must be logged in to comment</i></p>
+  </div>
   <% } %>
 
   <% posts.forEach((post) => { %>
-  <p><%= post.post_content %><br>
-  Posted by: <%= post.username %><br>
-  Votes: <%= post.post_votes %></p>
+  <div class="post">
+    <p><%= post.content %></p>
+    <div class="post-controls">
+      <p>Posted by: <%= post.username %> - Votes: <%= post.votes %>
 
-  <% if (post.username === req.session.user) { %>
-  <form method="POST" action="/posts/<%= post.post_id %>?_method=delete">
-    <input type="text" name="redir" value="<%= topic.id %>" style="display : none" />
-    <input type="submit" value="DELETE" />
-  </form>
-  <% } %>
+      <% if (post.username === req.session.user) { %>
+      <form method="POST" action="/posts/<%= post.id %>?_method=delete">
+        <input type="text" name="redir" value="<%= topic.id %>" style="display: none" />
+        <input type="submit" value="DELETE" />
+      </form>
+      <% } %>
 
-  <form method="POST" action="/posts/<%= post.post_id %>/vote?_method=put">
-    <input type="text" name="redir" value="<%= topic.id %>" style="display : none" />
-    <input type="submit" value="VOTE" />
-  </form>
+      <form method="POST" action="/posts/<%= post.post_id %>/vote?_method=put">
+        <input type="text" name="redir" value="<%= topic.id %>" style="display: none" />
+        <input type="submit" value="VOTE" />
+      </form>
+      </p>
+    </div>
 
   <% subs.forEach((sub) => {
-    if (sub.post_id === post.post_id) { %>
-
-    <p><%= sub.username %> says:<br>
-    <%= sub.sub_comment %></p>
-
+    if (sub.comment_id === post.id) { %>
+    <div class="subpost">
+      <p><b><%= sub.username %></b> says: <%= sub.content %></p>
+    </div>
     <% if (sub.username === req.session.user) { %>
-    <form method="POST" action="/posts/<%= post.post_id %>/<%= sub.sub_id %>?_method=delete">
-      <input type="text" name="redir" value="<%= topic.id %>" style="display : none" />
+    <form method="POST" action="/posts/<%= post.id %>/<%= sub.id %>?_method=delete">
+      <input type="text" name="redir" value="<%= topic.id %>" style="display: none" />
       <input type="submit" value="DELETE SUB" />
     </form>
     <% } %>
 
   <% }}) %>
+  </div>
 
 
   <% if (req.session.user) { %>
-  <form method="POST" action="/posts/<%= post.post_id %>">
-    <input type="text" name="redir" value="<%= topic.id %>" style="display : none" />
+  <form method="POST" action="/posts/<%= post.id %>">
+    <input type="text" name="redir" value="<%= topic.id %>" style="display: none" />
     <input type="text" name="subPost[content]" />
     <input type="submit" value="SUBMIT" />
   </form>
   <% } %>
 
   <% }) %>
-
+</main>
 </body>
 </html>

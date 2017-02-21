@@ -12,7 +12,7 @@ const session         = require('express-session');
 // Express-sessions creates a user session
 app.use(session({
   secret: 'DonkeyKong',
-  cookie: { maxAge: 60000 },
+  cookie: { maxAge: null },
   saveUninitialized: false,
   resave: false
 }));

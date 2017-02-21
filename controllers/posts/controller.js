@@ -2,6 +2,7 @@ const Posts         = require('../../models/posts');
 
 let controller = {};
 
+// Increments the vote count for specific comments
 controller.vote = (req, res) => {
   console.log(req.body);
   Posts.vote(req.params.id)
@@ -9,6 +10,7 @@ controller.vote = (req, res) => {
   .catch(err => console.log('ERROR:', err));
 };
 
+// Deletes a comment
 controller.destroy = (req, res) => {
   console.log(req.body);
   Posts.destroy(req.params.id)
@@ -16,6 +18,7 @@ controller.destroy = (req, res) => {
   .catch(err => console.log('ERROR:', err));
 };
 
+// Post a new subcomment
 controller.newSub = (req, res) => {
   console.log(req.body);
   Posts.newSub(req.params.id, req.body.subPost, req.session.user)
@@ -23,6 +26,7 @@ controller.newSub = (req, res) => {
   .catch(err => console.log('ERROR:', err));
 };
 
+// Delete subcomment
 controller.destroySub = (req, res) => {
   console.log(req.params.id, req.params.subid);
   Posts.destroySub(req.params.id, req.params.subid)

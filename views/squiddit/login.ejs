@@ -4,14 +4,49 @@
   <meta charset="utf-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <title>Login</title>
-  <link rel="stylesheet" href="">
+  <!-- CSS links -->
+  <link rel="stylesheet" type="text/css" href="/css/normalize.css">
+  <link rel="stylesheet" type="text/css" href="/css/style.css">
+
 </head>
 <body>
+
+  <header id="header">
+
+    <a href="/squiddit"><h1>Squiddit</h1></a>
+    <% if (req.session.user) { %>
+    <p>You are logged in as <%= req.session.user %>  <a href="/users/logout">LOG OUT</a></p>
+    <% } else { %>
+    <a href="/users/login">LOGIN / SIGN UP</a>
+    <% } %>
+
+  </header><!-- /header -->
+  <main>
+
+  <% if (req.query.invalid) { %>
+  <div class="warning">
+    <p>Invalid! User already exists with that name</p>
+  </div>
+  <% } %>
+
+  <div class="login-controls">
   <h1>Login Below</h1>
-  <form method="GET" action="/squiddit/verify">
-  <input type="text" name="name" />
-  <input type="text" name="pin" />
-  <input type="submit" value="login">
+  <form method="GET" action="/users/verify">
+  <input type="text" name="name" placeholder="Username" />
+  <input type="password" name="password" placeholder="Password" />
+  <input type="submit" value="Login" />
   </form>
+  </div>
+
+  <div class="login-controls">
+  <h1>Not A Member? Sign-up?</h1>
+  <form method="POST" action="/users/login">
+  <input type="text" name="newUser[name]" placeholder="Username" />
+  <input type="password" name="newUser[password]" placeholder="Password" />
+  <input type="submit" value="Sign Up" />
+  </form>
+  </div>
+
+</main>
 </body>
 </html>

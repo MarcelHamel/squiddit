@@ -11,7 +11,7 @@ controller.createTopic = (topics, user) => {
 };
 
 controller.createPost = (post, user) => {
-  return db.none('INSERT INTO posts (topic_id, post_content, username) VALUES ($1, $2, $3)', [post.topic_id, post.content, user]);
+  return db.none('INSERT INTO comments (topic_id, content, username) VALUES ($1, $2, $3)', [post.topic_id, post.content, user]);
 };
 
 controller.findById = (id)  => {
@@ -23,19 +23,24 @@ controller.vote = (id) => {
 };
 
 controller.commentCount = () => {
-  return db.query('SELECT COUNT(*), topic_id FROM posts GROUP BY topic_id;');
+  return db.query('SELECT COUNT(*), topic_id FROM comments GROUP BY topic_id;');
 }
 
 controller.destroy = (id) => {
   return db.none('DELETE FROM topics WHERE id = $1', [id])
 }
 
-controller.loginVerify = (name, pin) => {
-  return db.manyOrNone('SELECT * FROM users WHERE name = $1 AND password = $2', [name, pin]);
-};
+// controller.loginVerify = (name, pin) => {
+//   return db.manyOrNone('SELECT * FROM users WHERE name = $1 AND password = $2', [name, pin]);
+// };
 
-controller.findUserById = (id) => {
-  return db.one('SELECT * FROM users WHERE id = $1', [id]);
-};
+
+// controller.newUser = (newUser) => {
+//   return db.none('INSERT INTO users (name, password) VALUES ($1, $2)', [newUser.name, newUser.password]);
+// };
+
+// controller.userExist = (newUser) => {
+//   return db.manyOrNone('SELECT * FROM users WHERE name = $1', [newUser.name]);
+// }
 
 module.exports = controller;
