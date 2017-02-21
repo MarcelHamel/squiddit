@@ -29,6 +29,6 @@
     "method-override": "^2.3.7",
     "morgan": "^1.8.1",
     "path": "^0.12.7",
-    "pg-promise": "^5.5.6",
+    "pg-promise": "^5.5.6"
   }
 }
