@@ -1,38 +1,41 @@
-# squiddit
+# Squiddit
 
 A discussion forum for all things squid related. Unit 2 Project for General Assembly Web Development Immersive.
 
-Routes Structure: These SHOULD be labelled semantically.
+### Features
 
-router.post('/:topic_id/:id' controller.vote);
-router.delete('/:id/users', controller.deleteUser);
-router.get(':/id/edit', controller.edit);
-router.delete('/:id', controller.deletePost);
-router.post('/:id', controller.vote); 
-router.get(':/id', controller.show);
-router.put('/:id', controller.editPost);
-router.get('/new', controller.new);
-router.post('/users', controller.newUser);
-router.put('/users', controller.editUser);
-router.post('/', controller.create);
-router.get('/', controller.index);
+- Anonymous users can view and vote on any conversation topic
+- Topics ranked by number of votes
+- All individual topics are viewable, along with their comments and subcomments, by anonymous users
+
+- Users can create their own accounts (except where usernames already exist)
+- Users can log into and out of their accounts
+- Users can post ONLY when they are logged in
+- Users can only delete their own comments and topics
+
+- Input fields allow HTML formatting
 
 
-<!-- Redesigned -->
-router.put('/posts/:id', controller.editSub);
-router.post('/posts/:id', controller.createSub);
-router.delete('/posts/:id', controller.destroySub);
-router.get('/new', controller.new);
-router.get('/users', controller.newUser);
-router.post('/users', controller.createUser);
-router.delete('/users', controller.destroyUser);
-router.get('/:id', controller.show);
-router.put('/:id', controller.editPost);
-router.post('/:id', controller.createPost);
-router.delete('/:id', controller.destroyPost);
-router.get('/', controller.index);
-router.post('/', controller.createTopic);
-router.delete('/', controller.destroy);
-router.put('/', controller.edit);
+### Wireframe
+
+![Wireframe](./plan/wireframe.png)
+
+### ERD
+
+![ERD](.plan/ERD.png)
+
+### Modules Used
+
+- Node.js/Express.js - server side functionality, routing
+- Path - Normalizes filepaths for static assets
+- Body-parser - Retrieves request data from page forms
+- Method-Override - Allows PUT and DELETE requests
+- Morgan - A helpful logging module
+- Express-Session - Used to create and destroy user sessions within the app
+- EJS - Page rendering 
+- Pg-promise - SQL queries w/ JS
 
 
+### Instructions -
+
+Fork/clone this repo, navigate to its directory in terminal and fire up the server with nodemon. From there, the entry point will be accessible in the browser via (localhost:3000/squiddit)

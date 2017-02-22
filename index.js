@@ -5,7 +5,6 @@ const path            = require('path');
 const bodyParser      = require('body-parser');
 const methodOverride  = require('method-override');
 const logger          = require('morgan');
-const marked          = require('marked');
 const session         = require('express-session');
 
 
