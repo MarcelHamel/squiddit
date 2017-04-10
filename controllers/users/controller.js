@@ -1,5 +1,6 @@
-const session         = require('express-session');
-const Users           = require('../../models/users');
+const session      = require('express-session');
+const Users        = require('../../models/users');
+const bcrypt       = require('bcrypt') ;
 
 let controller = {};
 
@@ -8,27 +9,30 @@ controller.login = (req, res) => {
   res.render('squiddit/login', { req: req });
 };
 
+
 // Verify user credentials
-controller.loginVerify = (req, res) => {
-  // Check password where username equals input
-  Users.loginVerify(req.query.name, req.query.password)
-  .then((data) => {
-    // DB query set to manyOrNone. If no username matches that password, then length = 0;
-    if (data.length === 0) {
-      res.redirect('/users/login?invalid=badlogin')
-      // Else....
+controller.process_login = (req, res) => {
+  console.log(req.body)
+  Users
+  .findByUsername(req.body.name)
+  .then((user) => {
+    if (user) {
+      const isAuthed = bcrypt.compareSync(req.body.user.password, user.password_digest);
+      if (isAuthed) {
+        req.session.isAuthenticated = true;
+        delete user.password_digest;
+        req.session.user = user;
+        res.redirect(`/users/${req.session.user.id}`);
+      } else {
+        res.redirect('/users?error=true');
+      }
     } else {
-      // Get session property of user equal to provided name
-      req.session.user = req.query.name;
-      // Do the same for userID (this was actually never used)
-      req.session.userid = data[0].id;
-      // {Your Name Here} Go home
-      res.redirect('/squiddit')
+      res.redirect('/users?error=true');
     }
   })
-
   .catch(err => console.log('ERROR:', err));
 };
+
 
 // Logout
 controller.logout = (req, res) => {
@@ -43,18 +47,21 @@ controller.logout = (req, res) => {
 
 // Create a New User
 controller.newUser = (req, res) => {
+  console.log('Creating new user in controller.newUser:', req.body);
   Users.userExist(req.body.newUser)
   .then((data) => {
     if (data.length > 0) {
-      res.redirect('/users/login?invalid=user')
+      res.redirect('/users?invalid=user')
     } else {
       Users.newUser(req.body.newUser)
-      .then(() => {
-        Users.loginVerify(req.body.newUser.name, req.body.newUser.password)
-        .then(() => res.redirect('/Squiddit'));
+      .then((user) => {
+        console.log('processing login...')
+        req.session.isAuthenticated = true;
+        req.session.user = req.body.newUser.name
       })
-    }
-  })
+      .then(() => res.redirect('/'))
+    }}
+  )
   .catch(err => console.log('ERROR:', err));
 };
 

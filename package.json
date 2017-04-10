@@ -8,7 +8,7 @@
     "start": "node index.js"
   },
   "engines": {
-    "node" : "7.4.0"
+    "node": "7.4.0"
   },
   "repository": {
     "type": "git",
@@ -21,6 +21,7 @@
   },
   "homepage": "https://github.com/MarcelHamel/squiddit#readme",
   "dependencies": {
+    "bcrypt": "^1.0.2",
     "body-parser": "^1.16.1",
     "ejs": "^2.5.6",
     "express": "^4.14.1",

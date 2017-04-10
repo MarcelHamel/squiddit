@@ -7,6 +7,7 @@
   <title>Welcome to Squiddit</title>
   <!-- CSS links -->
   <link rel="stylesheet" type="text/css" href="/css/normalize.css">
+  <link rel="stylesheet" type="text/css" href="/css/materialize.min.css">
   <link rel="stylesheet" type="text/css" href="/css/style.css">
 
 </head>
@@ -14,12 +15,12 @@
 
   <header id="header">
 
-    <a href="/squiddit"><h1>Squiddit</h1></a>
+    <a href="/squiddit"><h1 class="hvr-skew">Squiddit</h1></a>
     <!-- Checks to see if user session exists, adjust header accordingly -->
     <% if (req.session.user) { %>
-      <p>You are logged in as <%= req.session.user %>  <a href="/users/logout">LOG OUT</a></p>
+      <p>You are logged in as <%= req.session.user %>  <a href="/users/logout" class="hvr-skew">LOG OUT</a></p>
     <% } else { %>
-      <a href="/users/login">LOGIN / SIGN UP</a>
+      <a href="/users/login" class="hvr-skew">LOGIN / SIGN UP</a>
     <% } %>
 
   </header><!-- /header -->
@@ -61,19 +62,19 @@
 
             <!-- Vote -->
             <form method="POST" action="/Squiddit/<%= topic.id %>?_method=put">
-              <input type="submit" value="VOTE" />
+              <input type="submit" value="VOTE" class="hvr-pulse-shrink"/>
             </form>
 
             <!-- Delete if and only if user posted this topic -->
             <% if (topic.username === req.session.user) { %>
             <form method="POST" action="/Squiddit/<%= topic.id %>?_method=delete">
-              <input type="submit" value="DELETE" />
+              <input type="submit" value="DELETE" class="hvr-pulse-shrink"/>
             </form>
             <% } %>
 
             <!-- Read More Link to Show Page -->
             <form method="GET" action="/Squiddit/<%= topic.id %>">
-              <input type="submit" value="SEE MORE" />
+              <input type="submit" value="SEE MORE" class="hvr-pulse-shrink"/>
             </form>
 
             </div>

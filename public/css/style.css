@@ -4,17 +4,39 @@ body {
   padding-top: 0px;
 }
 
+#landing-page {
+  background: url("../images/landing-background.jpg");
+  background-size: cover;
+  height: 100vh;
+}
+
+.bg-opacity-screen {
+  background: rgba(0,0,0,0.5);
+  width: 100%;
+  height: 100%;
+}
+
 .container {
   width: 100%;
   display: flex;
   flex-direction: row;
 }
 
+.intro {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: space-between;
+  color: #FFF;
+  height: 100%;
+}
+
  header {
   margin-top: 0;
   width: 100%;
   height: 100px;
-  background: purple;
+  background-color: #39008f;
+  background-image: url("https://www.transparenttextures.com/patterns/paper.png");
   display: flex;
   justify-content: space-around;
   align-items: center;
@@ -29,6 +51,7 @@ body {
 .login-controls {
   margin: 50px auto;
   text-align: center;
+  width: 480px;
 }
 
  main {
@@ -155,3 +178,5 @@ body {
   border: 2px red solid;
   color: red;
 }
+
+

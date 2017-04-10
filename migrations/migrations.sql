@@ -1,8 +1,7 @@
--- Exported from DB-DESIGNER.NET schema
 DROP TABLE IF EXISTS sub_posts;
 
 CREATE TABLE "sub_comments" (
-	"id" serial NOT NULL,
+	"id" BIGSERIAL NOT NULL,
 	"comment_id" integer NOT NULL,
 	"username" varchar(25) NOT NULL,
 	"content" TEXT NOT NULL,
@@ -15,7 +14,7 @@ CREATE TABLE "sub_comments" (
 DROP TABLE IF EXISTS posts;
 
 CREATE TABLE "comments" (
-	"id" serial NOT NULL,
+	"id" BIGSERIAL NOT NULL,
 	"topic_id" integer NOT NULL,
 	"username" text NOT NULL,
 	"content" TEXT NOT NULL,
@@ -29,7 +28,7 @@ CREATE TABLE "comments" (
 DROP TABLE IF EXISTS topics;
 
 CREATE TABLE "topics" (
-	"id" serial NOT NULL,
+	"id" BIGSERIAL NOT NULL,
 	"subject" varchar(64) NOT NULL,
 	"content" TEXT NOT NULL,
 	"username" varchar(25) NOT NULL,
@@ -43,9 +42,9 @@ CREATE TABLE "topics" (
 DROP TABLE IF EXISTS users;
 
 CREATE TABLE "users" (
-	"id" serial NOT NULL,
-	"name" varchar(25) NOT NULL,
-	"password" varchar(16) NOT NULL,
+	"id" BIGSERIAL NOT NULL,
+	"name" VARCHAR(40) NOT NULL,
+	"password_digest" VARCHAR(255) NOT NULL,
 	CONSTRAINT users_pk PRIMARY KEY ("id")
 ) WITH (
   OIDS=FALSE

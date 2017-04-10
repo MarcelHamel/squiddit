@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html>
+<head>
+
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <title>Welcome to Squiddit</title>
+  <!-- CSS links -->
+  <link rel="stylesheet" type="text/css" href="/css/normalize.css">
+  <link rel="stylesheet" type="text/css" href="/css/bootstrap.min.css">
+  <link rel="stylesheet" type="text/css" href="/css/style.css">
+
+</head>
+<body id="landing-page">
+  <section class="bg-opacity-screen">
+    <main class="intro">
+      <h1>Squiddit</h1>
+      <div class="login-controls">
+        <h4>Login</h4>
+          <form method="GET" action="/users/verify">
+            <div class="form-group">
+              <input type="text" class="form-control input-lg" name="name" placeholder="Username" />
+            </div>
+            <div class="form-group">
+              <input type="password" class="form-control input-lg" name="password" placeholder="Password" />
+            </div>
+            <div class="form-group">
+              <input type="submit" class="btn btn-lg btn-primary" value="Login" />
+            </div>
+          </form>
+      </div>
+      <h4>Prefer to simply browse our forums? You can always log in later. <a href="/squiddit">Continue as a guest.</a></h4>
+    </main>
+  </section>
+</body>
+</html>

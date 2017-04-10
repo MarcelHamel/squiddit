@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+s<!DOCTYPE html>
 <html>
   <head>
     <meta charset="utf-8">
@@ -19,7 +19,7 @@
       <% if (req.session.user) { %>
         <p>You are logged in as <%= req.session.user %>  <a href="/users/logout">LOG OUT</a></p>
       <% } else { %>
-        <a href="/users/login">LOGIN / SIGN UP</a>
+        <a href="/users/">LOGIN / SIGN UP</a>
       <% } %>
 
     </header><!-- /header -->
@@ -50,7 +50,7 @@
       <!-- Sign Up Controls -->
       <div class="login-controls">
         <h1>Not A Member? Sign-up?</h1>
-          <form method="POST" action="/users/login">
+          <form method="POST" action="/users/">
             <input type="text" name="newUser[name]" placeholder="Username" />
             <input type="password" name="newUser[password]" placeholder="Password" />
             <input type="submit" value="Sign Up" />
