@@ -39,22 +39,22 @@
 
       <!-- Login Controls -->
       <div class="login-controls">
-        <h1>Login Below</h1>
+        <h4>Login Below</h4>
           <form method="POST" action="/users/verify">
             <input type="text" name="email" placeholder="Username" />
             <input type="password" name="password" placeholder="Password" />
-            <input type="submit" value="Login" />
+            <button type="submit" class="btn purple darken-2 right">Login</button>
           </form>
       </div>
 
       <!-- Sign Up Controls -->
       <div class="login-controls">
-        <h1>Not A Member? Sign-up?</h1>
+        <h4>Not A Member? Sign-up!</h4>
           <form method="POST" action="/users/">
             <input type="text" name="newUser[username]" placeholder="Username" /><br />
             <input type="text" name="newUser[email]" placeholder="E-Mail" /><br />
             <input type="password" name="newUser[password]" placeholder="Password" /><br />
-            <input type="submit" value="Sign Up" />
+            <button type="submit" class="btn purple darken-2 right">Sign Up</button>
           </form>
       </div>
 

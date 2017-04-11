@@ -37,8 +37,8 @@
         <p>Weigh in below:</p>
         <form method="POST" action="/squiddit/<%= topic.id %>">
           <input type="text" name="post[topic_id]" value="<%= topic.id %>" style="display: none" />
-          <input type="text" class="content" name="post[content]" placeholder="Comment here" />
-          <input type="submit" value="POST" />
+          <textarea class="newcontent" name="post[content]" placeholder="Comment here"></textarea><br />
+          <button type="submit" class="btn purple darken-2 right">POST</button>
         </form>
       <% } else { %>
         <div class="warning">
@@ -54,32 +54,26 @@
             <p>Posted by: <%= post.username %> - Votes: <%= post.votes %>
 
             <!-- If current user posted comment, let them delete it -->
-            <% if (post.username === req.session.user) { %>
+            <%
+                if (req.session.user && post.username === req.session.user.username) { %>
               <form method="POST" action="/posts/<%= post.id %>?_method=delete">
                 <input type="text" name="redir" value="<%= topic.id %>" style="display: none" />
-                <input type="submit" value="DELETE" />
+                <button type="submit" class="btn purple darken-2">DELETE</button>
               </form>
             <% } %>
 
-            <form method="POST" action="/posts/<%= post.post_id %>/vote?_method=put">
+            <form method="POST" action="/posts/<%= post.id %>/vote?_method=put">
               <input type="text" name="redir" value="<%= topic.id %>" style="display: none" />
-              <input type="submit" value="VOTE" />
+              <button type="submit" class="btn purple darken-2">VOTE</button>
             </form>
             </p>
           </div>
 
         <!-- Display subcomments-->
         <% subs.forEach((sub) => {
-          if (sub.comment_id === post.id) { %>
+          if (sub.comment_id == post.id) { %>
             <div class="subpost">
               <p><b><%= sub.username %></b> says: <%= sub.content %></p>
-              <!-- Let user delete subcomment if they posted -->
-              <% if (sub.username === req.session.user) { %>
-                <form method="POST" action="/posts/<%= post.id %>/<%= sub.id %>?_method=delete">
-                  <input type="text" name="redir" value="<%= topic.id %>" style="display: none" />
-                  <input type="submit" value="DELETE SUB"/>
-                </form>
-              <% } %>
             </div>
 
       <% }}) %>
@@ -88,8 +82,8 @@
       <% if (req.session.user) { %>
       <form method="POST" action="/posts/<%= post.id %>">
         <input type="text" name="redir" value="<%= topic.id %>" style="display: none" />
-        <input type="text" name="subPost[content]" />
-        <input type="submit" value="SUBMIT" />
+        <textarea type="text" name="subPost[content]" placeholder="Comment here..."></textarea>
+        <button type="submit" value="SUBMIT" class="btn purple darken-2 right">SUBMIT</button>
       </form>
       <% } %>
 

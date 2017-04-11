@@ -11,7 +11,7 @@ controller.findAllById = (id) => {
 
 // Vote on a comment
 controller.vote = (id) => {
-  return db.none('UPDATE comments SET votes = post_votes + 1 WHERE id = $1', [id])
+  return db.none('UPDATE comments SET votes = votes + 1 WHERE id = $1', [id])
 };
 
 // Delete COMMENT
@@ -27,7 +27,7 @@ controller.destroySub = (id, subId) => {
 
 // New subcomment
 controller.newSub = (id, subPost, user) => {
-  return db.none('INSERT INTO sub_comments (comment_id, content, username) VALUES ($1, $2, $3)', [id, subPost.content, user]);
+  return db.none('INSERT INTO sub_comments (comment_id, content, username) VALUES ($1, $2, $3)', [id, subPost.content, user.username]);
 };
 
 // Find all sub-comments

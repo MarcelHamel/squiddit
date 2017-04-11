@@ -15,7 +15,7 @@ controller.newTopic = (topics, user) => {
 
 // Create new comment
 controller.newComment = (post, user) => {
-  return db.none('INSERT INTO comments (topic_id, content, username) VALUES ($1, $2, $3)', [post.topic_id, post.content, user]);
+  return db.none('INSERT INTO comments (topic_id, content, username) VALUES ($1, $2, $3)', [post.topic_id, post.content, user.username]);
 };
 
 // Find topic by ID

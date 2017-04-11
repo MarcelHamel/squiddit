@@ -16,7 +16,8 @@ controller.index = (req, res) => {
     .then((count) => {
 
       // Render topics with comment count
-      console.log('User Session on Index Page:', req.session.user)
+      console.log('User Session on Index Page:', req.session.user);
+      console.log('Comment count:', count);
       res.render('squiddit/index', {
         topics: data,
         count: count,
