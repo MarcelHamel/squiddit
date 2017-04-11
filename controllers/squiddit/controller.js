@@ -2,6 +2,7 @@ const session         = require('express-session');
 const Squiddit        = require('../../models/squiddit');
 const Posts           = require('../../models/posts');
 const marked          = require('marked');
+const AuthService    = require('../../services/auth.js');
 
 let controller = {};
 
@@ -15,6 +16,7 @@ controller.index = (req, res) => {
     .then((count) => {
 
       // Render topics with comment count
+      console.log('User Session on Index Page:', req.session.user)
       res.render('squiddit/index', {
         topics: data,
         count: count,
@@ -29,7 +31,8 @@ controller.index = (req, res) => {
 
 // Create a new topic
 controller.newTopic = (req, res) => {
-  Squiddit.newTopic(req.body.topics, req.session.user)
+  console.log(req.session.user);
+  Squiddit.newTopic(req.body.topics, req.session.user.username)
   .then(() => res.redirect('/squiddit'))
   .catch(err => console.log('ERROR:', err));
 };
@@ -46,7 +49,7 @@ controller.newComment = (req, res) => {
 controller.new = (req, res) => {
   res.render('squiddit/new', {
     req: req
-  });
+  })
 };
 
 // Show individual topic page

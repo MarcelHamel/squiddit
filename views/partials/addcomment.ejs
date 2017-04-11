@@ -1,0 +1,13 @@
+<% if (req.session.user) { %>
+
+  <div class="newPost">
+      <a href="/squiddit/new">ADD A NEW TOPIC</a><br>
+  </div>
+
+<% } else { %>
+
+  <div class="warning">
+    <p><i>You must be logged in to post</i></p>
+  </div>
+
+<% } %>

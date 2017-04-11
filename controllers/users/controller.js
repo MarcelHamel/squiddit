@@ -12,17 +12,18 @@ controller.login = (req, res) => {
 
 // Verify user credentials
 controller.process_login = (req, res) => {
-  console.log(req.body)
+  console.log(req.body);
+  console.log('Finding by email..');
   Users
-  .findByUsername(req.body.name)
+  .findByEmail(req.body.email)
   .then((user) => {
     if (user) {
-      const isAuthed = bcrypt.compareSync(req.body.user.password, user.password_digest);
+      const isAuthed = bcrypt.compareSync(req.body.password, user.password_digest);
       if (isAuthed) {
         req.session.isAuthenticated = true;
         delete user.password_digest;
         req.session.user = user;
-        res.redirect(`/users/${req.session.user.id}`);
+        res.redirect(`/squiddit`);
       } else {
         res.redirect('/users?error=true');
       }
@@ -57,7 +58,7 @@ controller.newUser = (req, res) => {
       .then((user) => {
         console.log('processing login...')
         req.session.isAuthenticated = true;
-        req.session.user = req.body.newUser.name
+        req.session.user = req.body.newUser
       })
       .then(() => res.redirect('/'))
     }}

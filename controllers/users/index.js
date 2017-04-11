@@ -12,7 +12,7 @@ router.post('/', controller.newUser);
 router.get('/logout', controller.logout);
 
 // Check login validity
-router.get('/verify', controller.process_login);
+router.post('/verify', controller.process_login);
 
 
 module.exports = router;

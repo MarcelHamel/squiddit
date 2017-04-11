@@ -5,29 +5,30 @@
   <meta charset="utf-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <title>Welcome to Squiddit</title>
+
+  <!-- JS links -->
+  <script
+  src="https://code.jquery.com/jquery-3.2.1.min.js"
+  integrity="sha256-hwg4gsxgFZhOsEEamdOYGBf13FyQuiTwlAQgxVSNgt4="
+  crossorigin="anonymous"></script>
+  <script type="text/javascript" src="/js/materialize.min.js"></script>
+  <script src="https://use.fontawesome.com/f1ff63a0b2.js"></script>
+
   <!-- CSS links -->
   <link rel="stylesheet" type="text/css" href="/css/normalize.css">
-  <link rel="stylesheet" type="text/css" href="/css/materialize.min.css">
+  <link rel="stylesheet" type="text/css" href="/css/materialize.css">
+  <link rel="stylesheet" type="text/css" href="/css/hover.css">
   <link rel="stylesheet" type="text/css" href="/css/style.css">
 
 </head>
 <body>
 
-  <header id="header">
-
-    <a href="/squiddit"><h1 class="hvr-skew">Squiddit</h1></a>
-    <!-- Checks to see if user session exists, adjust header accordingly -->
-    <% if (req.session.user) { %>
-      <p>You are logged in as <%= req.session.user %>  <a href="/users/logout" class="hvr-skew">LOG OUT</a></p>
-    <% } else { %>
-      <a href="/users/login" class="hvr-skew">LOGIN / SIGN UP</a>
-    <% } %>
-
-  </header><!-- /header -->
+  <% include ../partials/nav %>
 
   <main>
 
-  <!-- Checks for user session, allows posting if user logged in -->
+    <h1>What's New?</h1>
+    <!-- Checks for user session, allows posting if user logged in -->
     <% if (req.session.user) { %>
 
       <div class="newPost">
@@ -44,7 +45,6 @@
 
   <div class="container">
       <div class="topics">
-        <h1>Topics</h1>
 
         <% topics.forEach((topic) => { %>
 
@@ -62,20 +62,18 @@
 
             <!-- Vote -->
             <form method="POST" action="/Squiddit/<%= topic.id %>?_method=put">
-              <input type="submit" value="VOTE" class="hvr-pulse-shrink"/>
+              <button type="submit" class="btn purple lighten-2 valign-wrapper">VOTE</button>
             </form>
 
             <!-- Delete if and only if user posted this topic -->
-            <% if (topic.username === req.session.user) { %>
+            <% if (topic.username === req.session.user.username) { %>
             <form method="POST" action="/Squiddit/<%= topic.id %>?_method=delete">
-              <input type="submit" value="DELETE" class="hvr-pulse-shrink"/>
+              <button type="submit" class="btn purple lighten-2">DELETE</button>
             </form>
             <% } %>
 
             <!-- Read More Link to Show Page -->
-            <form method="GET" action="/Squiddit/<%= topic.id %>">
-              <input type="submit" value="SEE MORE" class="hvr-pulse-shrink"/>
-            </form>
+            <a class="btn purple lighten-2" href="/Squiddit/<%= topic.id %>">SEE MORE</a>
 
             </div>
           </div>
@@ -84,12 +82,9 @@
 
       </div>
 
-      <div class="sidebar">
-        <h1>ABOUT SQUIDDIT</h1>
-        <p>A project of full-stack developer, Marcel Hamel, Squiddit is a discussion forum where you can rant and rave about everyone's favorite cephalopods.</p>
-      </div>
 
     </div>
   </main>
+  <% include ../partials/footer %>
 </body>
 </html>

@@ -1,11 +1,21 @@
-  <header id="header">
+  <header id="header" class="purple darken-2">
 
-    <a href="/squiddit"><h1 class="hvr-skew">Squiddit</h1></a>
+    <a href="/squiddit"><h4>Squiddit</h4></a>
     <!-- Checks to see if user session exists, adjust header accordingly -->
     <% if (req.session.user) { %>
-      <p>You are logged in as <%= req.session.user %>  <a href="/users/logout" class="hvr-skew">LOG OUT</a></p>
+     <!--  <p>You are logged in as <%= req.session.user.username %>  <a href="/users/logout" class="hvr-skew">LOG OUT</a></p> -->
+
+      <!-- Dropdown Trigger -->
+      <a class='dropdown-button hvr-icon-hang' href='#' data-activates='navmenu'><%= req.session.user.username %></a>
+
+      <!-- Dropdown Structure -->
+      <ul id='navmenu' class='dropdown-content' style="display: none">
+        <li><a href="/squiddit/new" class='purple-text text-lighten-2'>New Topic</a></li>
+        <li><a href="/users/logout" class='purple-text text-lighten-2'>Log Out</a></li>
+      </ul>
+
     <% } else { %>
-      <a href="/users/login" class="hvr-skew">LOGIN / SIGN UP</a>
+      <a href="/users/" class="hvr-grow">LOGIN / SIGN UP</a>
     <% } %>
 
   </header>

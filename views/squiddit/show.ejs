@@ -4,24 +4,22 @@
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <title><%= topic.subject %></title>
+    <!-- JS links -->
+    <script
+    src="https://code.jquery.com/jquery-3.2.1.min.js"
+    integrity="sha256-hwg4gsxgFZhOsEEamdOYGBf13FyQuiTwlAQgxVSNgt4="
+    crossorigin="anonymous"></script>
+    <script type="text/javascript" src="/js/materialize.min.js"></script>
+    <script src="https://use.fontawesome.com/f1ff63a0b2.js"></script>
+
     <!-- CSS links -->
     <link rel="stylesheet" type="text/css" href="/css/normalize.css">
+    <link rel="stylesheet" type="text/css" href="/css/materialize.css">
     <link rel="stylesheet" type="text/css" href="/css/style.css">
-
   </head>
   <body>
 
-    <header id="header">
-
-      <a href="/squiddit"><h1>Squiddit</h1></a>
-      <!-- Checks to see if user session exists, adjust header accordingly -->
-      <% if (req.session.user) { %>
-      <p>You are logged in as <%= req.session.user %>  <a href="/users/logout">LOG OUT</a></p>
-      <% } else { %>
-      <a href="/users/login">LOGIN / SIGN UP</a>
-      <% } %>
-
-    </header><!-- /header -->
+  <% include ../partials/nav %>
 
     <main>
 
@@ -98,5 +96,6 @@
       </div>
       <% }) %>
     </main>
+    <% include ../partials/footer %>
   </body>
 </html>
